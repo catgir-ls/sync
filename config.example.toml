@@ -2,10 +2,11 @@
 api_key = ""
 
 [roundcube]
-base_url = "https://<DOMAIN>/admin"
-username = "admin@<DOMAIN>"
+base_url = "https://example.com/admin"
+username = "admin@example.com"
 password = ""
 blacklisted = [ "admin" ]
 
-[external]
-domains = [ "example.com" ]
+[variables]
+domain = "example.com"
+domains = [ "google.com" ]
