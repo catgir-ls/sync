@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "@deps": "./deps.ts",
+    "@types": "./types/mod.ts",
+    "@errors": "./errors/mod.ts",
+    
+    "@utils": "./utils/mod.ts",
+    "@lib": "./lib/mod.ts"
+  }
+}

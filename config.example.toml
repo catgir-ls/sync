@@ -1,0 +1,11 @@
+[cloudflare]
+api_key = ""
+
+[roundcube]
+base_url = "https://<DOMAIN>/admin"
+username = "admin@<DOMAIN>"
+password = ""
+blacklisted = [ "admin" ]
+
+[external]
+domains = [ "example.com" ]
