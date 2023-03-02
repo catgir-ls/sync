@@ -6,7 +6,7 @@
 import { RoundcubeError } from "@errors";
 
 // Types
-import type { TRoundcubeUsers, TPartialRoundcubeUser } from "@types";
+import type { TRet, TRoundcubeUsers, TPartialRoundcubeUser } from "@types";
 
 // Roundcube Class
 class Roundcube {
@@ -63,7 +63,7 @@ class Roundcube {
 
   public addAlias = async (username: string, alias: string): Promise<boolean> => {
     try {
-      await this.post<any>("/mail/aliases/add", {
+      await this.post<TRet>("/mail/aliases/add", {
         update_if_exists: 0,
         address: alias,
         forwards_to: username,
@@ -71,7 +71,7 @@ class Roundcube {
       });
 
       return true;
-    } catch(e) {
+    } catch {
       return false;
     }
   }

@@ -34,7 +34,7 @@ const main = async () => {
     Logger.log(`Synchronising ${domains.length} domains across ${users.length} users!`);
 
     for(const user of users) {
-      const [ username, domain ] = user.split("@");
+      const [ username ] = user.split("@");
 
       if(ignored.indexOf(username) !== -1) {
         Logger.warn(`${user} is being ignored`);
