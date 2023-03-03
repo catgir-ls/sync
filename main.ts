@@ -28,10 +28,12 @@ const main = async () => {
 
   try {
     /* Some domains may not be added to the Cloudflare account - we can define this in the config */
-    const [ domains, users ] = await Promise.all([
-      [ ...await Cloudflare.getDomains(), ...Config.get("variables", "domains") ],
-      await Roundcube.getUsers(Config.get("variables", "domain"))
+    const [ _domains, users ] = await Promise.all([
+      Cloudflare.getDomains(),
+      Roundcube.getUsers(Config.get("variables", "domain"))
     ]);
+
+    const domains = [..._domains, ...Config.get("variables", "domains")];
 
     Logger.log(`Synchronising ${domains.length} domains across ${users.length} users!`);
 
@@ -53,7 +55,7 @@ const main = async () => {
         continue;
       }
 
-      Logger.log(`${user} has been added to the following domains: ${_aliases.join(", ")}`);
+      Logger.log(`${user} has been added to the following domains: ${Object.keys(_aliases).join(", ")}`);
     }
   } catch(e) {
     Logger.error(e.toString());

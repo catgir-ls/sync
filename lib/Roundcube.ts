@@ -57,9 +57,8 @@ class Roundcube {
 
   public getUsers = async (domain: string): Promise<TRoundcubeUsers[]> =>
     (await this.get<TRoundcubeUsers[]>("/mail/users", { format: "json" }))
-      .filter((item: TRoundcubeUsers) => item.domain === domain)
-      .map((item: TRoundcubeUsers) => item.users.map((user: TPartialRoundcubeUser) => user.email))
-      .flat();
+      .filter((item: TRoundcubeUsers) => item.domain === domain)[0]
+      .users.map((user: TPartialRoundcuteUser) => user.email);
 
   public addAlias = async (username: string, alias: string): Promise<boolean> => {
     try {
@@ -77,11 +76,11 @@ class Roundcube {
   }
 
   public addAliases = async (username: string, domains: string[]): Promise<Record<string, boolean>> => {
-    const results = await Promise.all(domains.map(async domain => ({
-      [ domain ]: await this.addAlias(username, `${username.split("@")[0]}@${domain}`)
-    })));
+    const results = await Promise.all(domains.map(domain => 
+      this.addAlias(username, `${username.split("@")[0]}@${domain}`)
+    ));
 
-    return Object.assign({ }, ...results);
+    return Object.assign({}, ...results.map((result, idx) => ({ [domains[idx]]: result })));
   }
 }
 
